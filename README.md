@@ -12,9 +12,14 @@ The GoogleSearch library: https://pypi.org/project/googlesearch-python/
 Liam's commands are $temp, $youtube, $google, $wiki and $gif.
 
 $temp {city}
+
 $youtube {query}
+
 $google {query}
+
 $wiki {query}
+
 $gif {query}
+
 
 I encourage you to commit changes to this project and add more features to it.
