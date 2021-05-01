@@ -13,14 +13,19 @@ The GoogleSearch library: https://pypi.org/project/googlesearch-python/
 ## Commands
 Liam's commands are $temp, $youtube, $google, $wiki and $gif.
 
+to check the temperature:
 $temp {city}
 
+to search youtube:
 $youtube {query}
 
+to search google:
 $google {query}
 
+to search wikipedia:
 $wiki {query}
 
+to search for a gif:
 $gif {query}
 
 
