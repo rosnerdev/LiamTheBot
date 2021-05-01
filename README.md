@@ -6,6 +6,8 @@ Liam is a discord bot that shows you the temperature(in Celsius) and searches Yo
 ## APIs
 Giphy API: https://developers.giphy.com/
 
+OpenWeatherMap: https://openweathermap.org
+
 The GoogleSearch library: https://pypi.org/project/googlesearch-python/
 
 ## Commands
