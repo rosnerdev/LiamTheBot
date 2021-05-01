@@ -1,7 +1,7 @@
 # LiamTheBot
 Browse the web anonymously with Liam.
 
-Liam is a bot that shows you the temperature(in Celsius) and searches Youtube, Google, Wikipedia and Giphy.
+Liam is a discord bot that shows you the temperature(in Celsius) and searches Youtube, Google, Wikipedia and Giphy.
 
 ## Commands
 Liam's commands are $temp, $youtube, $google, $wiki and $gif.
