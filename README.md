@@ -3,6 +3,8 @@ Browse the web anonymously with Liam.
 
 Liam is a discord bot that shows you the temperature(in Celsius) and searches Youtube, Google, Wikipedia and Giphy.
 
+Click [Here](https://discord.com/oauth2/authorize?client_id=835110826061856798&permissions=8&scope=bot) to add Liam to your server.
+
 ## APIs
 Giphy API: https://developers.giphy.com/
 
