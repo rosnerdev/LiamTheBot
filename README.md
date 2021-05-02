@@ -11,7 +11,7 @@ OpenWeatherMap: https://openweathermap.org
 The GoogleSearch library: https://pypi.org/project/googlesearch-python/
 
 ## Commands
-Liam's commands are $temp, $youtube, $google, $wiki and $gif.
+Liam's commands are $temp, $youtube, $google, $wiki and $welcome_channel.
 
 to check the temperature:
 $temp {city}
