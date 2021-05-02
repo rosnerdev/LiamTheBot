@@ -25,8 +25,9 @@ $google {query}
 to search wikipedia:
 $wiki {query}
 
-to search for a gif:
-$gif {query}
+to set a welcome channel:
+$welcome_channel {channel_name}
 
 
 I encourage you to commit changes to this project and add more features to it.
+This Project is in development in collaboration with PvPBoost#6666.
