@@ -1,36 +1,43 @@
 import os
+import json
 import random
 import requests
 import discord
 from discord.ext import commands
 import googlesearch
+import sqlite3
+from replit import db
+from discord.ext import tasks
+from discord.utils import get
 
-client = discord.Client()
-bot = commands.Bot(command_prefix='$')
+intents = discord.Intents.default()
+intents.members = True
+bot = commands.Bot(command_prefix='$', intents=intents)
+db = sqlite3.connect('main.db')
+main = db.cursor()
 
 q = " "
 
-@client.event
+@bot.event
 async def on_ready():
-    print("We have logged in as {0.user}".format(client))
+    print("Bot Online.")
 
-@client.event
-async def on_message(message):
-  if message.author == client.user:
-    return
 
-api_gif = 'your-token'
 
 @bot.command()
-async def gif(ctx, *args):
-    q = (' ').join(list(args))
-    link = 'https://api.giphy.com/v1/gifs/search?api_key='+api_gif+'&q='+q+'&limit=25&offset=0&rating=r&lang=en'
-    get = requests.get(link)
-    json = get.json()["data"][random.randint(0,9)]["embed_url"]
-    await ctx.send(json)
+@commands.has_permissions(manage_messages=True)
+async def purge(ctx, amount : int):
+    await ctx.channel.purge(limit=amount+1)
+    await ctx.send('Done!')
 
+@purge.error
+async def clear_error(ctx, error):
+    if isinstance(error, commands.MissingRequiredArgument):
+        await ctx.send('Please specify the amount of messages you want to clear. Usage: //clear <number>')
+    if isinstance(error, commands.MissingPermissions):
+        await ctx.send('You do not have manage_messages permssion')
 
-api_weather = 'your-token'
+api_weather = os.environ['api_weather']
 
 
 @bot.command()
@@ -67,5 +74,28 @@ async def google(ctx, *args):
   for s in searcher:
     await ctx.send(s)
 
-my_secret = 'your-token'
+@bot.command()
+async def welcome_channel(ctx, channel:discord.TextChannel):
+  if channel is not None:
+    db = sqlite3.connect('main.db')
+    cursor = db.cursor()
+    cursor.execute(f"SELECT channel_id FROM wel_c WHERE guild_id = '{ctx.guild.id}'")
+    channel_id = cursor.fetchone()
+    if channel_id is None:
+      sql = ("INSERT INTO wel_c(guild_id, channel_id) VALUES(?,?)")
+      val = (ctx.guild.id, channel.id)
+      cursor.execute(sql, val)
+      db.commit()
+      await ctx.send(f"The channel '{channel.name}' has been set.")
+    else:
+      sql = ("UPDATE wel_c SET channel_id = ? WHERE guild_id = ?")
+      val = (channel.id, ctx.guild.id)
+      cursor.execute(sql, val)
+      db.commit()
+      await ctx.send(f"The channel '{channel.name}' has been update.")
+
+  else:
+    await ctx.send("Pls send the channel that u want.")
+
+my_secret = os.environ['TOKEN']
 bot.run(my_secret)
