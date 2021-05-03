@@ -11,12 +11,6 @@ intents = discord.Intents.default()
 intents.members = True
 bot = commands.Bot(command_prefix='$', intents=intents)
 
-keys = db.keys()
-print(keys)
-value = db["wel_c-835109761916600340"]
-print(value)
-
-
 @bot.event
 async def on_ready():
     print(f'{bot.user} Ready.')
@@ -33,7 +27,7 @@ async def on_member_join(member):
 
 @bot.command()
 @commands.has_permissions(manage_messages=True)
-async def purge(ctx, amount: int):
+async def purge(ctx, amount):
     await ctx.channel.purge(limit=amount + 1)
     await ctx.send('Done!')
 
