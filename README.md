@@ -27,4 +27,5 @@ $welcome_channel {channel_name}
 
 
 I encourage you to commit changes to this project and add more features to it.
+
 This Project was developed in collaboration with PvPBoost#6666.
