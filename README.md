@@ -18,7 +18,7 @@ The GoogleSearch library: https://pypi.org/project/googlesearch-python/
 
 `$google` to get a surprise search result related to Liam Neeson.
 
-`$youtube` to get a surprising video related to Liam Neeson.
+`$youtube` to get a surprising video related to Liam Neeson. Example: `$youtube something`
 
 ### Moderation Commands
 
