@@ -5,97 +5,88 @@ import requests
 import discord
 from discord.ext import commands
 import googlesearch
-import sqlite3
 from replit import db
-from discord.ext import tasks
-from discord.utils import get
 
 intents = discord.Intents.default()
 intents.members = True
 bot = commands.Bot(command_prefix='$', intents=intents)
-db = sqlite3.connect('main.db')
-main = db.cursor()
 
-q = " "
+keys = db.keys()
+print(keys)
+value = db["wel_c-835109761916600340"]
+print(value)
+
 
 @bot.event
 async def on_ready():
-    print("Bot Online.")
+    print(f'{bot.user} Ready.')
 
+
+
+@bot.command(pass_context=True)
+@bot.event
+async def on_member_join(member):
+    print(f'{member} has joined a server.')
+    await member.send(f"Hello {member}!")
+    await member.send(f"Welcome to the server!")
 
 
 @bot.command()
 @commands.has_permissions(manage_messages=True)
-async def purge(ctx, amount : int):
-    await ctx.channel.purge(limit=amount+1)
+async def purge(ctx, amount: int):
+    await ctx.channel.purge(limit=amount + 1)
     await ctx.send('Done!')
+
 
 @purge.error
 async def clear_error(ctx, error):
     if isinstance(error, commands.MissingRequiredArgument):
-        await ctx.send('Please specify the amount of messages you want to clear. Usage: //clear <number>')
+        await ctx.send(
+            'Please specify the amount of messages you want to clear. Usage: //clear <number>'
+        )
     if isinstance(error, commands.MissingPermissions):
         await ctx.send('You do not have manage_messages permssion')
+
 
 api_weather = os.environ['api_weather']
 
 
 @bot.command()
 async def temp(ctx, *args):
-  argument = (' ').join(list(args))
-  temp = 'https://api.openweathermap.org/data/2.5/weather?q='+argument+'&units=metric&appid='+api_weather
-  get = requests.get(temp)
-  json = get.json()["main"]["temp"]
-  await ctx.send("The temperature in the selected city is: " + str(json))
-
-@bot.command()
-async def wiki(ctx, *args):
-  argument = (' ').join(list(args))
-  term = argument + " wikipedia"
-  searcher = googlesearch.search(term)
-  await ctx.send("Result from Wikipedia:")
-  await ctx.send(searcher[0])
+    argument = (' ').join(list(args))
+    temp = 'https://api.openweathermap.org/data/2.5/weather?q=' + argument + '&units=metric&appid=' + api_weather
+    get = requests.get(temp)
+    json = get.json()["main"]["temp"]
+    lists = ["\"If you want to see the sunshine, you have to weather the storm.\" - Frank Lane", "\"We could all take a lesson from the weather, It pays no attention to criticism.\"", "\"Wherever you go, no matter what the weather, always bring your own sunshine.\" - Anthony J. D'Angelo", "\"There is no such thing as bad weather, Only inappropriate clothing.\""]
+    await ctx.send("The temperature in the selected city is: " + str(json))
+    await ctx.send(lists[random.randint(0,3)])
 
 @bot.command()
 async def youtube(ctx, *args):
-  argument = (' ').join(list(args))
-  term = argument + " youtube"
-  searcher = googlesearch.search(term, num_results=5)
-  await ctx.send("Results from Youtube:")
-  for s in searcher:
-    await ctx.send(s)
+    argument = "liam neeson"
+    term = argument + " youtube"
+    searcher = googlesearch.search(term, num_results=10000)
+    await ctx.send(searcher[random.randint(0,9999)])
+
 
 @bot.command()
 async def google(ctx, *args):
-  argument = (' ').join(list(args))
-  term = argument
-  searcher = googlesearch.search(term, num_results=3)
-  await ctx.send("Results from Google:")
-  for s in searcher:
-    await ctx.send(s)
+    argument = (' ').join(list(args))
+    term = argument, "liam neeson"
+    searcher = googlesearch.search(term, num_results=1)
+    await ctx.send("Result from Google:")
+    for s in searcher:
+        await ctx.send(s)
+
 
 @bot.command()
-async def welcome_channel(ctx, channel:discord.TextChannel):
-  if channel is not None:
-    db = sqlite3.connect('main.db')
-    cursor = db.cursor()
-    cursor.execute(f"SELECT channel_id FROM wel_c WHERE guild_id = '{ctx.guild.id}'")
-    channel_id = cursor.fetchone()
-    if channel_id is None:
-      sql = ("INSERT INTO wel_c(guild_id, channel_id) VALUES(?,?)")
-      val = (ctx.guild.id, channel.id)
-      cursor.execute(sql, val)
-      db.commit()
-      await ctx.send(f"The channel '{channel.name}' has been set.")
+async def welcome_channel(ctx, channel: discord.TextChannel):
+    if channel is not None:
+        db[f"wel_c-{ctx.guild.id}"] = f"{channel}"
+        await ctx.send(f"The channel has been set.")
     else:
-      sql = ("UPDATE wel_c SET channel_id = ? WHERE guild_id = ?")
-      val = (channel.id, ctx.guild.id)
-      cursor.execute(sql, val)
-      db.commit()
-      await ctx.send(f"The channel '{channel.name}' has been update.")
+        await ctx.send("Pls send the channel that u want.")
 
-  else:
-    await ctx.send("Pls send the channel that u want.")
 
 my_secret = os.environ['TOKEN']
 bot.run(my_secret)
