@@ -20,10 +20,6 @@ The GoogleSearch library: https://pypi.org/project/googlesearch-python/
 
 `$youtube` to get a surprising video related to Liam Neeson. Example: `$youtube something`
 
-### Moderation Commands
-
-`$welcome_channel` to set a channel for your bot to welcome people. (Still in Beta.)
-
 More Commands Coming Soon...
 
 
