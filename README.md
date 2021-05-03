@@ -11,19 +11,21 @@ OpenWeatherMap: https://openweathermap.org
 The GoogleSearch library: https://pypi.org/project/googlesearch-python/
 
 ## Commands
-Liam's commands are $temp, $youtube, $google and $welcome_channel.
 
-to check the temperature:
-$temp {city}
+### Basic Commands
 
-to search youtube:
-$youtube {query}
+`$temp` to get the temperature in your city. Example: `$temp los angeles`
 
-to search google:
-$google {query}
+`$google` to get a surprise search result related to Liam Neeson.
 
-to set a welcome channel:
-$welcome_channel {channel_name}
+`$youtube` to get a surprising video related to Liam Neeson.
+
+### Moderation Commands
+
+`$welcome_channel` to set a channel for your bot to welcome people. (Still in Beta.)
+
+More Commands Coming Soon...
+
 
 
 I encourage you to commit changes to this project and add more features to it.
