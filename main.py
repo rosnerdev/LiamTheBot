@@ -23,7 +23,8 @@ async def on_member_join(member):
     print(f'{member} has joined a server.')
     await member.send(f"Hello {member}!")
     await member.send(f"Welcome to the server!")
-
+    async def member_join_channel(ctx, member=member):
+      await ctx.send(f"Hello and Welcome, {member}!")
 
 @bot.command()
 @commands.has_permissions(manage_messages=True)
@@ -57,10 +58,10 @@ async def temp(ctx, *args):
 
 @bot.command()
 async def youtube(ctx, *args):
-    argument = "liam neeson"
-    term = argument + " youtube"
-    searcher = googlesearch.search(term, num_results=10000)
-    await ctx.send(searcher[random.randint(0,9999)])
+    argument = (' ').join(list(args))
+    term = argument, "liam neeson", "youtube"
+    searcher = googlesearch.search(term, num_results=4)
+    await ctx.send(searcher[random.randint(0,3)])
 
 
 @bot.command()
@@ -71,16 +72,6 @@ async def google(ctx, *args):
     await ctx.send("Result from Google:")
     for s in searcher:
         await ctx.send(s)
-
-
-@bot.command()
-async def welcome_channel(ctx, channel: discord.TextChannel):
-    if channel is not None:
-        db[f"wel_c-{ctx.guild.id}"] = f"{channel}"
-        await ctx.send(f"The channel has been set.")
-    else:
-        await ctx.send("Pls send the channel that u want.")
-
 
 my_secret = os.environ['TOKEN']
 bot.run(my_secret)
