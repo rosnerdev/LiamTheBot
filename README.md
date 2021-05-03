@@ -1,7 +1,7 @@
 # LiamTheBot
 Browse the web anonymously with Liam.
 
-Liam is a discord bot that shows you the temperature(in Celsius) and searches Youtube, Google and Wikipedia. 
+Liam is a discord bot that shows you the temperature(in Celsius) and searches for random Liam Neeson Results on Youtube and Google. 
 
 Click [Here](https://discord.com/oauth2/authorize?client_id=835110826061856798&permissions=8&scope=bot) to add Liam to your server.
 
@@ -11,7 +11,7 @@ OpenWeatherMap: https://openweathermap.org
 The GoogleSearch library: https://pypi.org/project/googlesearch-python/
 
 ## Commands
-Liam's commands are $temp, $youtube, $google, $wiki and $welcome_channel.
+Liam's commands are $temp, $youtube, $google and $welcome_channel.
 
 to check the temperature:
 $temp {city}
@@ -21,9 +21,6 @@ $youtube {query}
 
 to search google:
 $google {query}
-
-to search wikipedia:
-$wiki {query}
 
 to set a welcome channel:
 $welcome_channel {channel_name}
